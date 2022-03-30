@@ -39,13 +39,17 @@ public class HomePageTest extends ExecutionContext implements HomePage {
     @Override
     public void e_ChooseDictionary() {
         var element = $$(".topic-list li a").stream().skip(1).findFirst().get();
+        var text = element.getOwnText();
         element.click();
-        var a = $$(".topic-list li a").stream().skip(1).findFirst().get().text();
-        var foo = $$(".topic-list li a").stream().skip(1).findFirst().get().getText();
-        var foo2 = $$(".topic-list li a").stream().skip(1).findFirst().get().getOwnText();
-        var foo3 = $$(".topic-list li a").stream().skip(1).findFirst().get().getValue();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println("error");
+        }
+       $$(".topic-list li a").stream().skip(1).findFirst().get().click();
 
-        var text = element.getOwnText().trim();
+
+//        var text = $$(".topic-list li a").stream().skip(1).findFirst().get().getOwnText();
         dictionaryText = text;
 
     }
@@ -57,12 +61,11 @@ public class HomePageTest extends ExecutionContext implements HomePage {
         searchCollectionText = textToTest;
     }
 
-    @Override
-    public void e_LogOut() {
-//        $$("#options-dropdown .dropdown-menu li").stream().filter(x->x.text().equals("terk")).findFirst().get().click();
-        back();
-
-    }
+//    @Override
+//    public void e_LogOut() {
+//        back();
+//
+//    }
 
     @Override
     public void v_Dictionary() {

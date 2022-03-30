@@ -5,9 +5,8 @@ import com.codeborne.selenide.Selenide;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.BeforeExecution;
 import org.graphwalker.java.annotation.GraphWalker;
+import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.id;
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Configuration.browser;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -25,9 +24,15 @@ public class LoginTest extends ExecutionContext implements Login {
 
     @Override
     public void e_LostPassword() {
-       var formList = $("#login-form-container ul li");
-       var lostPasswordElement = formList.$$("a").stream().filter(x->x.text().equals("şifremi unuttum")).findFirst().get();
-       lostPasswordElement.click();
+        var formList = $("#login-form-container ul li");
+        var lostPasswordElement = formList.$$("a").stream().filter(x -> x.text().equals("şifremi unuttum")).findFirst().get();
+        lostPasswordElement.click();
+    }
+
+    @Override
+    public void v_LoggedOut() {
+        var loginLink = $("#top-login-link");
+        loginLink.exists();
     }
 
     @Override
@@ -39,6 +44,24 @@ public class LoginTest extends ExecutionContext implements Login {
     }
 
     @Override
+    public void e_LogOut() {
+        var logOutButtonExists = $("#options-dropdown .dropdown-menu .separated a").exists();
+        while (logOutButtonExists) {
+            $("#options-dropdown a").click();
+            $("#options-dropdown .dropdown-menu .separated a").click();
+            logOutButtonExists = $("#options-dropdown .dropdown-menu .separated a").exists();
+        }
+
+    }
+
+    @Override
+    public void v_FailedLogin() {
+        var errorField = $(".field-validation-error");
+        errorField.exists();
+        errorField.text().equals("hatalı kullanıcı ya da şifre, ama hangisi söylemem.");
+    }
+
+    @Override
     public void e_HomePage() {
         var item = $("#logo");
         item.click();
@@ -47,13 +70,14 @@ public class LoginTest extends ExecutionContext implements Login {
     @Override
     public void e_Register() {
 //        var formList = $("#login-form-container ul");
-        var registerButton = $("href$='/kayit'");
+        var registerButton = $(By.linkText("kayıt ol"));
+//        var registerButton = $("href='/kayit'");
         registerButton.click();
     }
 
     @Override
     public void v_Register() {
-        assert (Selenide.title().equals("kullanıcı bilgileri  - kutsal bilgi kaynağı"));
+        Selenide.title().equals("kullanıcı bilgileri  - kutsal bilgi kaynağı");
     }
 
     @Override
@@ -63,19 +87,32 @@ public class LoginTest extends ExecutionContext implements Login {
 
     @Override
     public void v_ResetPassword() {
-        assert (Selenide.title().equals("şifre sıfırlama süreci - kutsal bilgi kaynağı"));
+        Selenide.title().equals("şifre sıfırlama süreci - kutsal bilgi kaynağı");
+    }
+
+    @Override
+    public void v_LoggedIn() {
+        var userPageItem = $("#top-navigation ul .not-mobile");
+        userPageItem.exists();
+        userPageItem.getOwnText().contains("ben");
+    }
+
+    @Override
+    public void e_GoToLogin() {
+        $("#top-login-link").click();
     }
 
     @Override
     public void v_HomePage() {
-        assert (Selenide.title().equals("ekşi sözlük - kutsal bilgi kaynağı"));
+        Selenide.title().equals("ekşi sözlük - kutsal bilgi kaynağı");
     }
 
     @Override
-    public void e_Login() {
+    public void e_SuccessfulLogin() {
         var userNameField = $("#username");
         userNameField.setValue("bvrpcohwkieujcnbit@bvhrs.com");
         var password = $("#password");
+
         password.setValue("qweASD1410").pressEnter();
     }
 
