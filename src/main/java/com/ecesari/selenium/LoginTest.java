@@ -44,6 +44,11 @@ public class LoginTest extends ExecutionContext implements Login {
     }
 
     @Override
+    public void e_BackToLoggedIn() {
+        System.out.println("backToLoggedIn");
+    }
+
+    @Override
     public void e_LogOut() {
         var logOutButtonExists = $("#options-dropdown .dropdown-menu .separated a").exists();
         while (logOutButtonExists) {
@@ -68,10 +73,13 @@ public class LoginTest extends ExecutionContext implements Login {
     }
 
     @Override
+    public void v_UserPage() {
+        $("#profile-top-container").exists();
+    }
+
+    @Override
     public void e_Register() {
-//        var formList = $("#login-form-container ul");
         var registerButton = $(By.linkText("kayıt ol"));
-//        var registerButton = $("href='/kayit'");
         registerButton.click();
     }
 
@@ -119,5 +127,11 @@ public class LoginTest extends ExecutionContext implements Login {
     @Override
     public void v_Login() {
         $("#content-body div").shouldHave(Condition.id("login-form-container"));
+    }
+
+    @Override
+    public void e_GoToUserPage() {
+        $("#top-navigation .not-mobile a").click();
+        $("#top-navigation .not-mobile a").click();
     }
 }

@@ -46,10 +46,7 @@ public class HomePageTest extends ExecutionContext implements HomePage {
         } catch (InterruptedException e) {
             System.out.println("error");
         }
-       $$(".topic-list li a").stream().skip(1).findFirst().get().click();
-
-
-//        var text = $$(".topic-list li a").stream().skip(1).findFirst().get().getOwnText();
+        $$(".topic-list li a").stream().skip(1).findFirst().get().click();
         dictionaryText = text;
 
     }

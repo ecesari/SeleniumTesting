@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Runner {
   public static void main(String[] args) throws IOException {
     TestExecutor executor = new TestExecutor(
-      HomePageTest.class, LoginTest.class
+      HomePageTest.class, LoginTest.class, UserPageTests.class
     );
 
     Result result = executor.execute(true);
