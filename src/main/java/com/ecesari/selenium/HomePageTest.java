@@ -14,6 +14,10 @@ import static com.codeborne.selenide.Selenide.*;
 @GraphWalker(value = "random(edge_coverage(100))")
 public class HomePageTest extends ExecutionContext implements HomePage {
 
+    private String channelText = "";
+    private String dictionaryText = "";
+    private String searchCollectionText = "";
+
     @BeforeExecution
     public void setup() throws InterruptedException {
         browser = "chrome";
@@ -23,22 +27,26 @@ public class HomePageTest extends ExecutionContext implements HomePage {
 
     @Override
     public void v_Channels() {
-        System.out.println("You are at channels");
+        $("#partial-index div h2").shouldHave(text(channelText));
     }
 
     @Override
     public void e_HomePage() {
         var item = $("#logo");
         item.click();
-        assert (Selenide.title() == "ekşi sözlük - kutsal bilgi kaynağı");
     }
 
     @Override
     public void e_ChooseDictionary() {
-        var element = $(".topic-list li a");
+        var element = $$(".topic-list li a").stream().skip(1).findFirst().get();
         element.click();
+        var a = $$(".topic-list li a").stream().skip(1).findFirst().get().text();
+        var foo = $$(".topic-list li a").stream().skip(1).findFirst().get().getText();
+        var foo2 = $$(".topic-list li a").stream().skip(1).findFirst().get().getOwnText();
+        var foo3 = $$(".topic-list li a").stream().skip(1).findFirst().get().getValue();
+
         var text = element.getOwnText().trim();
-        $("#content-body #topic #title").shouldHave(text(text));
+        dictionaryText = text;
 
     }
 
@@ -46,7 +54,7 @@ public class HomePageTest extends ExecutionContext implements HomePage {
     public void e_SearchEntries() {
         var textToTest = "qwerty";
         $("#search-textbox").setValue(textToTest).pressEnter();
-        $("#content-body #topic #title").shouldHave(text(textToTest));
+        searchCollectionText = textToTest;
     }
 
     @Override
@@ -58,27 +66,22 @@ public class HomePageTest extends ExecutionContext implements HomePage {
 
     @Override
     public void v_Dictionary() {
-        System.out.println("You are at dictionary");
-
+        $("#content-body #topic #title").shouldHave(text(dictionaryText));
     }
 
     @Override
     public void v_Search() {
-        System.out.println("You are at search");
-
+        $("#content-body #topic #title").shouldHave(text(searchCollectionText));
     }
 
     @Override
     public void v_HomePage() {
-        System.out.println("You are at homepage");
-
+        assert (Selenide.title() == "ekşi sözlük - kutsal bilgi kaynağı");
     }
 
     @Override
     public void e_Login() {
         $("#top-login-link").click();
-        $("#content-body div").shouldHave(Condition.id("login-form-container"));
-
     }
 
     @Override
@@ -86,12 +89,11 @@ public class HomePageTest extends ExecutionContext implements HomePage {
         var item = $("#quick-index-nav li a");
         var text = item.getText();
         item.click();
-        $("#partial-index div h2").shouldHave(text(text));
+        channelText = text;
     }
 
     @Override
     public void v_Login() {
-        System.out.println("You are at login");
-
+        $("#content-body div").shouldHave(Condition.id("login-form-container"));
     }
 }
