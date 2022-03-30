@@ -53,7 +53,7 @@ public class LoginTest extends ExecutionContext implements Login {
 
     @Override
     public void v_Register() {
-        assert (Selenide.title() == "kullanıcı bilgileri  - kutsal bilgi kaynağı");
+        assert (Selenide.title().equals("kullanıcı bilgileri  - kutsal bilgi kaynağı"));
     }
 
     @Override
@@ -63,12 +63,12 @@ public class LoginTest extends ExecutionContext implements Login {
 
     @Override
     public void v_ResetPassword() {
-        assert (Selenide.title() == "şifre sıfırlama süreci - kutsal bilgi kaynağı");
+        assert (Selenide.title().equals("şifre sıfırlama süreci - kutsal bilgi kaynağı"));
     }
 
     @Override
     public void v_HomePage() {
-        assert (Selenide.title() == "ekşi sözlük - kutsal bilgi kaynağı");
+        assert (Selenide.title().equals("ekşi sözlük - kutsal bilgi kaynağı"));
     }
 
     @Override
