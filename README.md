@@ -12,3 +12,9 @@ This testing model contains the starting vertex of the test. From the starting v
 
 ## Login
 Login model contains the login and authorization features of the website. It is reached from the homepage vertex. From here the test can attempt to login, reset password or register. If logged in, the test may go to the userpage model. To reach the homepage model the testing state should be logged out. The website uses captcha on its login page. Therefore, manual input is needed to solve captcha problems.
+
+## Profile
+Profile model is used for logged in users. The test can add a biography or a note. Those also have failed testing actions. Another testing is done for the entries. 
+
+## Dictionary
+Dictionary test handles the dictionary model of the website. Actions to sort the dictionary or go to a single entry could be made as well as to display share information.
