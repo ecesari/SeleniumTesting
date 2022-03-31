@@ -2,7 +2,7 @@
 Ekşi Sözlük is a collaborative hypertext dictionary based on the concept of Web sites built up on user contribution. SeleniumTesting is conveyed on eksisozluk as a model based testing. 
 
 ## Tools
-The tools used for the testing are graphwalker, maven, selenium and selenide. Model and testing data has been generated using graphwalker. Graphwalker studio may be used to display the model and test scenarios.
+The tools used for the testing are graphwalker, maven, selenium and selenide. Model and testing data has been generated using graphwalker. Graphwalker studio may be used to display the model and test scenarios. The model has been imported to graphwalker to generate sources. Selenium java has been used to write tests along with selenide library.
 
 ## Structure
 There are 4 models in total that have been used in this testing project. These models cover homepage, profile, dictionary and log-in models of eksisozluk.com.
